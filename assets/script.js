@@ -19,11 +19,12 @@
     // attribute of each time-block be used to do this?
     //
     // TODO: Add code to display the current date in the header of the page.
- 
+   
+
     $(document).ready(function() {
         // Display the current date
         let currentDate = dayjs();
-        $('#currentDay').text(currentDate.format('dddd, MMMM Do'));
+        $('#currentDay').text(currentDate.format('dddd, MMMM DD'));
       
         // Add event listeners to the time-block save buttons
         $('.time-block').each(function() {
@@ -39,13 +40,13 @@
        
         $('#prev-day').on('click', function() {
             currentDate = currentDate.subtract(1, 'day');
-            $('#currentDay').text(currentDate.format('dddd, MMMM Do'));
+            $('#currentDay').text(currentDate.format('dddd, MMMM DD'));
             updateTimeBlocks();
         });
         
         $('#next-day').on('click', function() {
             currentDate = currentDate.add(1, 'day');
-            $('#currentDay').text(currentDate.format('dddd, MMMM Do'));
+            $('#currentDay').text(currentDate.format('dddd, MMMM DD'));
             updateTimeBlocks();
         });
 
@@ -74,7 +75,7 @@ function updateTimeBlocks() {
     if (id < currentHour) {
       $(this).addClass('past');
     } else if (id == currentHour) {
-      $(this).addClass('present');
+    $(this).addClass('present');
     } else {
       $(this).addClass('future');
     }
