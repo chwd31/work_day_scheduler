@@ -21,46 +21,66 @@
     // TODO: Add code to display the current date in the header of the page.
    
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Display the current date
         let currentDate = dayjs();
         $('#currentDay').text(currentDate.format('dddd, MMMM DD'));
-      
+
         // Add event listeners to the time-block save buttons
-        $('.time-block').each(function() {
+        $('.time-block').each(function () {
             let $textarea = $(this).find('.description');
             let $saveBtn = $(this).find('.saveBtn');
-            $saveBtn.on('click', function() {
+            $saveBtn.on('click', function () {
                 let text = $textarea.val();
                 let id = $(this).parent().attr('id');
                 localStorage.setItem(currentDate.format(`${id}`), text);
             });
         });
 
-       
-        $('#prev-day').on('click', function() {
+
+        $('#prev-day').on('click', function () {
             currentDate = currentDate.subtract(1, 'day');
             $('#currentDay').text(currentDate.format('dddd, MMMM DD'));
             updateTimeBlocks();
         });
-        
-        $('#next-day').on('click', function() {
+
+        $('#next-day').on('click', function () {
             currentDate = currentDate.add(1, 'day');
             $('#currentDay').text(currentDate.format('dddd, MMMM DD'));
             updateTimeBlocks();
         });
 
         updateTimeBlocks();
-    
-        
-      
-         // Load the saved schedule from local storage when the page loads
-     $('.time-block').each(function() {
-    let id = $(this).attr('id');
-    let text = localStorage.getItem(currentDate.format(`${id}`));
-    $(this).find('.description').val(text);
-     });
+
+
+
+        // Load the saved schedule from local storage when the page loads
+        $('.time-block').each(function () {
+            let id = $(this).attr('id');
+            let text = localStorage.getItem(currentDate.format(`${id}`));
+            $(this).find('.description').val(text);
+        });
+
+
+        function updateTimeBlocks() {
+            let currentTime = dayjs();
+            let currentHour = currentTime.hour();
+            $('.time-block').each(function () {
+                let id = $(this).attr('id');
+                if (id < currentHour) {
+                    $(this).addClass('past');
+                } else if (id == currentHour) {
+                    $(this).addClass('present');
+                } else {
+                    $(this).addClass('future');
+                }
+            });
+        }
     })
+
+
+
+
 
 
   // Update the time-block elements to reflect the past, present, and future
@@ -68,16 +88,16 @@
 
   
 
-function updateTimeBlocks() {
-    let currentHour = currentDate.hour();
-    $('.time-block').each(function() {
-    let id = $(this).attr('id');
-    if (id < currentHour) {
-      $(this).addClass('past');
-    } else if (id == currentHour) {
-    $(this).addClass('present');
-    } else {
-      $(this).addClass('future');
-    }
-  });
-}
+// function updateTimeBlocks() {
+//     let currentHour = currentDate.hour();
+//     $('.time-block').each(function() {
+//     let id = $(this).attr('id');
+//     if (id < currentHour) {
+//       $(this).addClass('past');
+//     } else if (id == currentHour) {
+//     $(this).addClass('present');
+//     } else {
+//       $(this).addClass('future');
+//     }
+//   });
+//
