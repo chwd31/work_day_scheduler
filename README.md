@@ -12,9 +12,9 @@ No other installation is necessary.
 This application is used to schedule out a busy workday based on user input.  The scheduler was created to meet the following criteria:
 
 ### User Story
-AS AN employee with a busy schedule
-I WANT to add important events to a daily planner
-SO THAT I can manage my time effectively
+AS AN employee with a busy schedule  
+I WANT to add important events to a daily planner  
+SO THAT I can manage my time effectively  
 
 ### Acceptance Criteria
 GIVEN I am using a daily planner to create a schedule
