@@ -1,7 +1,6 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
-// $(function () {
     // TODO: Add a listener for click events on the save button. This code should
     // use the id in the containing time-block as a key to save the user input in
     // local storage. HINT: What does `this` reference in the click listener
@@ -23,7 +22,8 @@
  
     $(document).ready(function() {
         // Display the current date
-        $('#currentDay').text(dayjs().format('dddd, MMMM Do'));
+        let currentDate = dayjs();
+        $('#currentDay').text(currentDate.format('dddd, MMMM Do'));
       
         // Add event listeners to the time-block save buttons
         $('.time-block').each(function() {
@@ -32,37 +32,51 @@
             $saveBtn.on('click', function() {
                 let text = $textarea.val();
                 let id = $(this).parent().attr('id');
-                localStorage.setItem(dayjs().format(`"${id}"`), text);
+                localStorage.setItem(currentDate.format(`${id}`), text);
             });
         });
-      
-        // Add event listeners to the prev-day and next-day buttons
+
+       
         $('#prev-day').on('click', function() {
-            // code to update the current day and update the time-block elements accordingly
+            currentDate = currentDate.subtract(1, 'day');
+            $('#currentDay').text(currentDate.format('dddd, MMMM Do'));
+            updateTimeBlocks();
         });
-      
+        
         $('#next-day').on('click', function() {
-            // code to update the current day and update the time-block elements accordingly
+            currentDate = currentDate.add(1, 'day');
+            $('#currentDay').text(currentDate.format('dddd, MMMM Do'));
+            updateTimeBlocks();
         });
+
+        updateTimeBlocks();
+    
+        
       
          // Load the saved schedule from local storage when the page loads
-  $('.time-block').each(function() {
+     $('.time-block').each(function() {
     let id = $(this).attr('id');
-    let text = localStorage.getItem(dayjs().format(`"${id}"`));
+    let text = localStorage.getItem(currentDate.format(`${id}`));
     $(this).find('.description').val(text);
-  });
+     });
+    })
+}
 
   // Update the time-block elements to reflect the past, present, and future
-  let currentHour = dayjs().hour();
-  $('.time-block').each(function() {
+    //  updateTimeBlocks();
+
+  
+
+function updateTimeBlocks() {
+    let currentHour = currentDate.hour();
+    $('.time-block').each(function() {
     let id = $(this).attr('id');
     if (id < currentHour) {
       $(this).addClass('past');
-    } else if (id === currentHour) {
+    } else if (id == currentHour) {
       $(this).addClass('present');
     } else {
       $(this).addClass('future');
     }
   });
-});
-    
+}
