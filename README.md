@@ -34,6 +34,9 @@ THEN the saved events persist
 
 ### Image of Site
 
+![Screen Shot 2023-01-16 at 2 31 19 PM](https://user-images.githubusercontent.com/118683737/212761650-08747006-106e-43b0-b941-5d7492b6a51d.png)  
+Screenshot of how site should appear in browser.
+
 
 
 
