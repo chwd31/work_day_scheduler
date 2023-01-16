@@ -60,7 +60,7 @@
     $(this).find('.description').val(text);
      });
     })
-}
+
 
   // Update the time-block elements to reflect the past, present, and future
     //  updateTimeBlocks();
